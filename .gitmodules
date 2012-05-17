@@ -1,0 +1,6 @@
+[submodule "impress"]
+	path = impress
+	url = https://github.com/bartaz/impress.js
+[submodule "leancop"]
+	path = leancop
+	url = git@github.com:adrianomelo/leancop.git

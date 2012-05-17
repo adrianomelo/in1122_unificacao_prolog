@@ -1,0 +1,11 @@
+
+prove([[f(f(f(a)))], [-f(X), X], [-a]], R).
+
+prove([[X, f(X)], [-a], [-f(a)]], R).
+
+
+prove([[-a], [-f(a)], [X, f(X)]], R). % loop
+
+prove([[-a], [f(a)], [X, -f(X)]], R).
+
+prove([[-X], [-f(X)], [a, f(a)]], R). 

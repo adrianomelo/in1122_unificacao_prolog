@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Unificação em prolog | by @adrianomelo</title>
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Adriano Melo" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="impress/css/impress-demo.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="impress/favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="3">
+        <span class="try">unificação em</span>
+        <h1>prolog</h1>
+        <span class="footnote">@adrianomelo</span>
+    </div>
+
+    <div class="step" data-x="2000" data-y="0">
+        <h1>prolog data objects (termos)</h1>
+		<img src="prolog-data-objects.png" />
+    </div>
+
+	<div class="step title" data-x="3000" data-y="0">
+        <h1>estrutura</h1>
+    </div>
+	<div class="step" data-x="3000" data-y="200">
+        <p>Elemento que representa uma coleção de termos</p>
+    </div>
+	<div class="step" data-x="3000" data-y="400">
+        <p>É constituida por um <em>functor</em> (símbolo constante) e um ou mais componentes</p>
+    </div>
+	<div class="step" data-x="3000" data-y="600">
+        <img src="functor.png" />
+    </div>
+
+	<div class="step title" data-x="4500" data-y="0" data-scale="2">
+        <p>unificação de estruturas</p>
+    </div>
+	<div class="step title" data-x="4200" data-y="150">
+        <p>duas estruturas unificam se:</p>
+    </div>
+	<div class="step title" data-x="4250" data-y="250">
+        <p>1. functor é o mesmo</p>
+    </div>
+	<div class="step title" data-x="4250" data-y="350">
+        <p>2. possuem a mesma aridade</p>
+    </div>
+	<div class="step title" data-x="4250" data-y="450">
+        <p>3. todos os componentes unificam</p>
+    </div>
+	<div class="step title" data-x="4200" data-y="700">
+        <p>O símbolo "_" é unificado com qualquer valor</p>
+    </div>
+	<div class="step title" data-x="4200" data-y="950">
+        <p>A unificação de estruturas aninhadas é feita recursivamente</p>
+    </div>
+	<div class="step title" data-x="4250" data-y="1100">
+        <p>1. Unifica a primeira estrutura</p>
+    </div>
+	<div class="step title" data-x="4250" data-y="1200">
+        <p>2. Unifica as estruturas aninhadas</p>
+    </div>
+
+	<div class="step" data-x="6000" data-y="0" data-scale="2">
+        <p>Termo cíclico</p>
+    </div>
+	<div class="step" data-x="5650" data-y="150">
+        <p>são representações de termos infinitos</p>
+    </div>
+	<div class="step" data-x="5750" data-y="350">
+		<p>X = f(X). </p>
+    </div>
+	<div class="step" data-x="5650" data-y="550">
+        <p>não são suportados em todas as implementações de prolog</p>
+    </div>
+
+	<div class="step" data-x="7000" data-y="0" data-scale="2">
+        <p>implementações</p>
+    </div>
+	<div class="step" data-x="6650" data-y="150">
+        <p>gprolog</p>
+    </div>
+	<div class="step" data-x="6750" data-y="250">
+		<p><strong>não</strong> suporta termos cíclicos, apenas o occurs check</p>
+    </div>
+	<div class="step" data-x="6650" data-y="450">
+        <p>prolog swi</p>
+    </div>
+	<div class="step" data-x="6750" data-y="550">
+        <p><a href="http://mips.complang.tuwien.ac.at/ulrich/papers/PDF/meta90.pdf">suporta termos cíclicos</a> e o occurs check</p>
+    </div>
+
+	<div class="step" data-x="6650" data-y="750">
+        <p>algoritmo base p/ achar um ciclo: </p>
+    </div>
+	<div class="step" data-x="6750" data-y="1000">
+		<p>- Caminhar pelos termos em profundidade e marcar os termos visitados, ao achar um termo já visitado, um ciclo foi achado.</p>
+		<p>- Ao voltar da recursão, desmarcar itens.</p>
+    </div>
+
+	<div class="step" data-x="8300" data-y="0" data-scale="2">
+        <p>LeanCop</p>
+    </div>
+	<div class="step" data-x="7950" data-y="150">
+        <p>usa o método <strong>unify_with_occurs_check</strong> de prolog</p>
+    </div>
+
+	<div class="step" data-x="7950" data-y="350">
+        <p>prove([[-a], [f(a)], [a, -f(a)]], R). % ok</p>
+		<p>prove([[-a], [f(X)], [X, -f(a)]], R). % ok</p>
+		<p>prove([[-X], [f(X)], [X, -f(X)]], R). % ok</p>
+    </div>
+
+	<div class="step" data-x="7950" data-y="520">
+        <p style="color:red;">prove([[-a], [-f(a)], [X, f(X)]], R).</p>
+    </div>
+
+	<div class="step" data-x="7950" data-y="620">
+        <p style="color:red;">prove([[-X, g(Y)], [Y, g(X)]], R).</p>
+    </div>
+
+	<div class="step" data-x="9650" data-y="0" data-scale="2">
+        <p>conclusão</p>
+    </div>
+	<div class="step" data-x="9100" data-y="400">
+        <p>Apesar do LeanCop fazer unificação checando ciclos, oportunidades de melhora foram encontrados e deverão ser estudados mais a fundo.</p>
+    </div>
+
+    <div id="overview" class="step" data-x="3000" data-y="0" data-scale="6">
+    </div>
+
+</div>
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+<script src="impress/js/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
