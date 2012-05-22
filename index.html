@@ -68,46 +68,122 @@
 	<div class="step title" data-x="4200" data-y="950">
         <p>A unificação de estruturas aninhadas é feita recursivamente</p>
     </div>
-	<div class="step title" data-x="4250" data-y="1100">
-        <p>1. Unifica a primeira estrutura</p>
+	<div class="step" data-x="4250" data-y="1100">
+        <p>1. O functor e a aridade são os mesmos</p>
     </div>
-	<div class="step title" data-x="4250" data-y="1200">
-        <p>2. Unifica as estruturas aninhadas</p>
+	<div class="step" data-x="4250" data-y="1200">
+        <p>2. Os componentes unificam</p>
+    </div>
+	<div class="step" data-x="4200" data-y="1500">
+        <p><strong>?- f(a, b, Z) = f(X, Y, c).</strong><br />
+		Z = c,<br />
+		X = a,<br />
+		Y = b.<Br />
+		</p>
+    </div>
+	<div class="step" data-x="4200" data-y="1800">
+        <p><strong>?- X = f(X).</strong><br />
+		X = f(**).</p>
+    </div>
+	<div class="step" data-x="4200" data-y="2100">
+        <p><strong>?- X = f(Y), Y = g(X).</strong><br />
+		X = f(g(**)), <br />
+		Y = g(f(**)).</p>
+    </div>
+	<div class="step" data-x="4200" data-y="2550">
+        <p><strong>?- X = s(X), Y = y(X,X), A = s(s(s(A))), B = y(A,A), Y = B.</strong><br />
+		X = s(**),<br />
+		Y = y(s(**), s(**)),<br />
+		A = s(s(s(**))),<br />
+		B = y(s(s(s(**))), s(s(s(**)))).</p>
     </div>
 
-	<div class="step" data-x="6000" data-y="0" data-scale="2">
-        <p>Termo cíclico</p>
+	<div class="step" data-x="5900" data-y="0" data-scale="2">
+        <p>unificação de listas</p>
     </div>
 	<div class="step" data-x="5650" data-y="150">
-        <p>são representações de termos infinitos</p>
+        <p>append(?List1, ?List2, ?List3)</p>
     </div>
-	<div class="step" data-x="5750" data-y="350">
-		<p>X = f(X). </p>
+	<div class="step" data-x="5750" data-y="370">
+		<p>
+			Succeeds  when List3  unifies with  the concatenation  of List1  and<br />
+		    List2.   The  predicate can be  used with any instantiation  pattern <br />
+		    (even three variables).
+		</p>
     </div>
-	<div class="step" data-x="5650" data-y="550">
-        <p>não são suportados em todas as implementações de prolog</p>
+	<div class="step" data-x="5650" data-y="800">
+        <p><strong>?- append(A, B, []).</strong><br />
+		A = [], <br />
+		B = [] ; <br />
+		false.</p>
     </div>
+	<div class="step" data-x="5650" data-y="1100">
+        <p><strong>?- append([], B, [a]).</strong> <br />
+		B = [a].</p>
+    </div>
+	<div class="step" data-x="5650" data-y="1600">
+        <p><strong>?- append(A, B, [a,b]).</strong><br />
+		A = [], <br />
+		B = [a, b] ; <br />
+		A = [a], <br />
+		B = [b] ; <br />
+		A = [a, b], <br />
+		B = [] ; <br />
+		false.</p>
+    </div>
+	<div class="step" data-x="5650" data-y="2300">
+        <p><strong>?- append(A, B, [X,b]).</strong><br />
+		A = [], <br />
+		B = [X, b] ; <br />
+		A = [X], <br />
+		B = [b] ; <br />
+		A = [X, b], <br />
+		B = [] ; <br />
+		false. </p>
+    </div>
+	<div class="step" data-x="5650" data-y="2800">
+        <p><strong>?- append([a], B, [X, f(X)]).</strong><br />
+		B = [f(a)], <br />
+		X = a. </p>
+    </div>
+	<div class="step" data-x="5650" data-y="3150">
+        <p><strong>?- append(B, [X], [g(_)]).</strong><Br />
+		B = [], <br />
+		X = g(_G239) ;<br />
+		false.</p>
+    </div>
+	<div class="step" data-x="5650" data-y="3500">
+        <p><strong>?- append(B, [g(_)], [g(_), g(a)]).</strong><br />
+		B = [g(_G241)] ;<br />
+		false.</p>
+	</div>
+	<div class="step" data-x="5650" data-y="3850">
+        <p><strong>?- append(B, [X], [f(X)]).</strong> <br />
+		B = [], <br />
+		X = f(**) ; <br />
+		false.</p>
+	</div>
 
-	<div class="step" data-x="7000" data-y="0" data-scale="2">
+	<div class="step" data-x="7100" data-y="0" data-scale="2">
         <p>implementações</p>
     </div>
-	<div class="step" data-x="6650" data-y="150">
+	<div class="step" data-x="6750" data-y="150">
         <p>gprolog</p>
     </div>
-	<div class="step" data-x="6750" data-y="250">
+	<div class="step" data-x="6850" data-y="250">
 		<p><strong>não</strong> suporta termos cíclicos, apenas o occurs check</p>
     </div>
-	<div class="step" data-x="6650" data-y="450">
+	<div class="step" data-x="6750" data-y="450">
         <p>prolog swi</p>
     </div>
-	<div class="step" data-x="6750" data-y="550">
+	<div class="step" data-x="6850" data-y="550">
         <p><a href="http://mips.complang.tuwien.ac.at/ulrich/papers/PDF/meta90.pdf">suporta termos cíclicos</a> e o occurs check</p>
     </div>
 
-	<div class="step" data-x="6650" data-y="750">
+	<div class="step" data-x="6750" data-y="750">
         <p>algoritmo base p/ achar um ciclo: </p>
     </div>
-	<div class="step" data-x="6750" data-y="1000">
+	<div class="step" data-x="6850" data-y="1000">
 		<p>- Caminhar pelos termos em profundidade e marcar os termos visitados, ao achar um termo já visitado, um ciclo foi achado.</p>
 		<p>- Ao voltar da recursão, desmarcar itens.</p>
     </div>
@@ -115,11 +191,8 @@
 	<div class="step" data-x="8300" data-y="0" data-scale="2">
         <p>LeanCop</p>
     </div>
-	<div class="step" data-x="7950" data-y="150">
-        <p>usa o método <strong>unify_with_occurs_check</strong> de prolog</p>
-    </div>
 
-	<div class="step" data-x="7950" data-y="350">
+	<div class="step" data-x="7950" data-y="250">
         <p>prove([[-a], [f(a)], [a, -f(a)]], R). % ok</p>
 		<p>prove([[-a], [f(X)], [X, -f(a)]], R). % ok</p>
 		<p>prove([[-X], [f(X)], [X, -f(X)]], R). % ok</p>
